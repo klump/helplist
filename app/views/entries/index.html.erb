@@ -1,5 +1,7 @@
-<h1>Helplist for all courses</h1>
+<div class="page-header">
+	<h1>Helplist <small>All courses</small></h1>
+</div>
 
-<p><span class="label label-info">Tip</span> Append the course to the URL to filter for a specific course, e.g. <%= link_to filter_entries_url("it334g"), filter_entries_path("it334g") %></p>
+<p><span class="label label-info">Tip</span> Append the course code to the URL to filter for a specific course, e.g. <%= link_to filter_entries_url("it334g"), filter_entries_path("it334g") %>. This page will automatically refresh after 20 seconds.</p>
 
 <%= render "helplist" %>

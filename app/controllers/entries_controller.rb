@@ -1,41 +1,42 @@
 class EntriesController < ApplicationController
 	# GET /entries
 	# GET /entries.json
-  def index
+	def index
 		@entries = Entry.all.order("created_at ASC")
-  end
+	end
 
 	# GET /entries/new
-  def new
+	def new
 		@entry = Entry.new
-  end
+	end
 
 	# POST /entries
 	# POST /entries.json
-  def create
+	def create
 		@entry = Entry.new(entry_params)
 
 		respond_to do |format|
 			if @entry.save
-				format.html { redirect_to filter_entries_path(@entry.course), notice: 'Entry was successfully created.' }
-				format.json { render status: :created }
+				format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
+				format.json { render :show, status: :created, location: @entry }
 			else
 				format.html { render :new }
 				format.json { render json: @entry.errors, status: :unprocessable_entity }
 			end
-	  end
+		end
 	end
 
 	# GET /entries/course
 	# GET /entries/course.json
-  def filter
+	def filter
 		@filter = params[:course].upcase
+
 		@entries = Entry.where( course: @filter).order("created_at ASC")
-  end
+	end
 
 	# DELETE /entries/1
 	# DELETE /entries/1.json
-  def destroy
+	def destroy
 		@entry = Entry.find(params[:id])
 
 		@entry.destroy
@@ -43,7 +44,7 @@ class EntriesController < ApplicationController
 			format.html { redirect_to entries_url, notice: 'Entry was successfully destroyed.' }
 			format.json { head :no_content }
 		end
-  end
+	end
 
 	private
 		# Never trust parameters from the scary internet, only allow the white list through.

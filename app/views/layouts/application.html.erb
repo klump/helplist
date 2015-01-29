@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-	  <title>NSA helplist</title>
-	  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
+		<title>NSA helplist</title>
+		<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
 		<%- #= javascript_include_tag 'application', 'data-turbolinks-track' => true -%>
-	  <%= csrf_meta_tags %>
+		<%= csrf_meta_tags %>
+		<% if ( ( controller_name == 'entries' ) && ( ( action_name == 'filter' ) || ( action_name == 'index' ) ) ) %>
+			<meta http-equiv="refresh" content="20">
+		<% end %>
 	</head>
 	<body>
 
@@ -13,8 +16,16 @@
 			<%= notice %>
 		</div>
 	<% end %>
+	<% if @coffee_break %>
+		<div id="coffee-break" class="alert alert-warning">
+			The supervisors are right now on coffee break. You are welcome to queue for help, we will get back to you as fast as possible.
+		</div>
+	<% end %>
 
 		<%= yield %>
-
+		
+		<div class="small pull-right">
+			Feedback to <a href="mailto:alexander.kratzsch@his.se">Alexander Kratzsch</a>
+		</div>
 	</body>
 </html>

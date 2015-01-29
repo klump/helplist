@@ -1,4 +1,6 @@
-<%= button_to 'I need help!', new_entry_path, method: :get, class: ['btn', 'btn-success'], id: 'need-help-button' %>
+<p>
+	<%= button_to 'I need help!', new_entry_path, method: :get, class: ['btn', 'btn-primary', 'btn-lg'], id: 'need-help-button' %>
+</p>
 
 <% if @entries.any? %>
 	<table class="table table-striped table-condensed">
@@ -8,7 +10,7 @@
 			<th>Room</th>
 			<th>Group</th>
 			<th>Type</th>
-			<th>Waiting</th>
+			<th>Waiting since</th>
 			<th>&nbsp;</th>
 		</tr>
 	<% @entries.each do |entry| %>
@@ -19,10 +21,10 @@
 			<td><%= entry.group %></td>
 			<td><%= entry.demonstration? ? 'Demo' : 'Help' %></td>
 			<td><time datetime="<%= entry.created_at %>"><%= time_ago_in_words(entry.created_at) %></time></td>
-			<td><%= button_to 'Remove', entry, :method => :delete, :class => :destroy, :confirm => 'Are you sure?' %></td>
+			<td><%= button_to 'Remove', entry, :method => :delete, :class => :destroy, :confirm => 'Are you sure?', class: ['btn', 'btn-danger', 'btn-sm'] %></td>
 		</tr>
 	<% end %>
 	</table>
 <% else %>
-	<div class="alert alert-success">Nobody needs help right now.</div>
+	<div class="alert alert-success" role="alert">Nobody needs help right now.</div>
 <%end %>

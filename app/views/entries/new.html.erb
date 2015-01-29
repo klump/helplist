@@ -1,63 +1,64 @@
-<h1>Add request for help</h1>
+<div class="page-header">
+	<h1>Helplist <small>Add request for help</small></h1>
+</div>
 
 <p><span class="label label-danger">Important</span> This list will be cleared automatically every night.</p>
 
-<%= form_for(@entry, class: 'form-horizontal') do |f| %>
-  <% if @entry.errors.any? %>
-    <div id="error_explanation alert alert-error">
-      <h2><%= pluralize(@entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
+<%= form_for(@entry, html: {class: 'form-horizontal'}) do |f| %>
+	<% if @entry.errors.any? %>
+		<div id="error_explanation" class="alert alert-danger" role="alert">
+			<strong><%= pluralize(@entry.errors.count, "error") %> prohibited this entry from being saved:</strong>
 
-      <ul>
-      <% @entry.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+			<ul>
+			<% @entry.errors.full_messages.each do |message| %>
+				<li><%= message %></li>
+			<% end %>
+			</ul>
+		</div>
+	<% end %>
 
 	<div class="form-group">
-		<%= f.label :course, class: 'col-sm-2' %>
-		<div class="col-sm-offset-2 col-sm-10">
+		<%= f.label :course, class: ['col-sm-2', 'control-label'] %>
+		<div class="col-sm-3">
 			<%= f.text_field :course, class: 'form-control', placeholder: 'Course code, e.g. IT334G', pattern: '[a-zA-Z]{2}[0-9]{3}[a-zA-Z]' %>
 		</div>
 	</div>
 
 	<div class="form-group">
-		<%= f.label :name, class: 'col-sm-2' %>
-		<div class="col-sm-offset-2 col-sm-10">
+		<%= f.label :name, class: ['col-sm-2', 'control-label'] %>
+		<div class="col-sm-3">
 			<%= f.text_field :name, class: 'form-control', placeholder: 'Your name' %>
 		</div>
 	</div>
 
 	<div class="form-group">
-		<%= f.label :room, class: 'col-sm-2' %>
-		<div class="col-sm-offset-2 col-sm-10">
+		<%= f.label :room, class: ['col-sm-2', 'control-label'] %>
+		<div class="col-sm-3">
 			<%= f.text_field :room, class: 'form-control', placeholder: 'Room, e.g. D205', pattern: '[a-zA-Z][0-9]{3}' %>
 		</div>
 	</div>
 
 	<div class="form-group">
-		<%= f.label :group, class: 'col-sm-2' %>
-		<div class="col-sm-offset-2 col-sm-10">
+		<%= f.label :group, class: ['col-sm-2', 'control-label'] %>
+		<div class="col-sm-3">
 			<%= f.text_field :group, class: 'form-control', placeholder: 'Group, e.g. 15', pattern: '[0-9]{1,2}' %>
 		</div>
 	</div>
 
 	<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-10">
+		 <div class="col-sm-offset-2 col-sm-3">
 			<div class="checkbox">
-				<%= f.label :demonstation, class: 'col-sm-2' %>
-				<%= f.check_box :demonstration %>
+				<%= f.label :demonstration do %>
+				  <%= f.check_box :demonstration %> I want to demonstrate my solution
+				<% end %>
 			</div>
 		</div>
 	</div>
 
 	<div class="form-group">
-	  <div class="actions col-sm-offset-2 col-sm-10">
-  	  <%= f.submit 'Help me!' %>
-			<%= button_to 'Nevermind', entries_path, method: :get, class: 'btn' %>
-  	</div>
+		<div class="actions col-sm-offset-2 col-sm-3">
+			<%= f.submit 'Help me!', class: ['btn', 'btn-primary'] %>
+			<%= link_to 'Nevermind', entries_path, class: ['btn', 'btn-default'] %>
+		</div>
 	</div>
 <% end %>
-
-<%= link_to 'Back', entries_path %>
