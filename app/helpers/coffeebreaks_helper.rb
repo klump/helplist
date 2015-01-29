@@ -1,0 +1,2 @@
+module CoffeebreaksHelper
+end

@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
+
 	resources :entries, only: [:index, :new, :create, :destroy]
 	get 'entries/:course', to: 'entries#filter', as: 'filter_entries'
+
+	get 'coffeebreak/start', to: 'coffeebreaks#start'
+	get 'coffeebreak/end', to: 'coffeebreaks#end'
+
+	root 'entries#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-	root 'entries#index'
+  # root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

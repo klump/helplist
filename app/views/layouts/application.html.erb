@@ -16,7 +16,7 @@
 			<%= notice %>
 		</div>
 	<% end %>
-	<% if @coffee_break %>
+	<% if Coffeebreak.on_break? %>
 		<div id="coffee-break" class="alert alert-warning">
 			The supervisors are right now on coffee break. You are welcome to queue for help, we will get back to you as fast as possible.
 		</div>
