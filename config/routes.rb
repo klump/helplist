@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-	resources :entries, only: [:index, :destroy]
-	get 'entries/:course', to: 'entries#filter'
+	resources :entries, only: [:index, :new, :create, :destroy]
+	get 'entries/:course', to: 'entries#filter', as: 'filter_entries'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
