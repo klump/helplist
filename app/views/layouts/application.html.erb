@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Helplist</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
+	<head>
+	  <title>NSA helplist</title>
+	  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
+		<%- #= javascript_include_tag 'application', 'data-turbolinks-track' => true -%>
+	  <%= csrf_meta_tags %>
+	</head>
+	<body>
 
-<%= yield %>
+	<% if notice %>
+		<div class="alert alert-success">
+			<%= notice %>
+		</div>
+	<% end %>
 
-</body>
+		<%= yield %>
+
+	</body>
 </html>
