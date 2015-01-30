@@ -14,7 +14,11 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-gem "twitter-bootstrap-rails"
+# bootstrap
+gem 'bootstrap-sass'
+
+# use thin
+gem "thin"
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

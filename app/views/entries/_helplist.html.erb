@@ -21,7 +21,7 @@
 			<td><%= entry.group %></td>
 			<td><%= entry.demonstration? ? 'Demo' : 'Help' %></td>
 			<td><time datetime="<%= entry.created_at %>"><%= time_ago_in_words(entry.created_at) %></time></td>
-			<td><%= button_to 'Remove', entry, :method => :delete, :class => :destroy, :confirm => 'Are you sure?', class: ['btn', 'btn-danger', 'btn-sm'] %></td>
+			<td><%= button_to 'Remove', entry, method: :delete, :confirm => 'Are you sure?', class: ['danger', 'btn', 'btn-danger', 'btn-sm'] %></td>
 		</tr>
 	<% end %>
 	</table>
