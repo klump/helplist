@@ -10,9 +10,12 @@ class EntriesController < ApplicationController
 		@entry = Entry.new
 
 		# try to get the room and group from the IP address
-		remote_ip = request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip
+		remote_ip = request.env["HTTP_X_FORWARDED_FOR"]
+		remote_ip = request.env["HTTP_X_REAL_IP"] if remote_ip.empty?
+		remote_ip = request.remote_ip if remote_ip.empty?
+@debug = remote_ip
 
-		if remote_ip =~ /\A10.(\d{1,3}).(\d{1,3}).\d{1,3}\Z/
+		if remote_ip =~ /\A10\.(\d{1,3})\.(\d{1,3})\.\d{1,3}\Z/
 			room = $1
 			group = $2.to_i
 			@entry.room = "D#{room}" if room.in?(['204', '205', '206', '207', '208'])

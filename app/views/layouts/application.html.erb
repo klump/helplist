@@ -11,6 +11,11 @@
 	</head>
 	<body>
 
+	<% if @debug %>
+		<pre>
+			<%= @debug %>
+		</pre>
+	<% end %>
 	<% if notice %>
 		<div class="alert alert-success">
 			<%= notice %>
