@@ -8,6 +8,11 @@
 		<% if ( ( controller_name == 'entries' ) && ( ( action_name == 'filter' ) || ( action_name == 'index' ) ) ) %>
 			<meta http-equiv="refresh" content="20">
 		<% end %>
+		<% if Entry.any? %>
+			<%= favicon_link_tag 'red.png' %>
+		<% else %>
+			<%= favicon_link_tag 'green.png' %>
+		<% end %>
 	</head>
 	<body>
 

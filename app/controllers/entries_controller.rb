@@ -11,8 +11,8 @@ class EntriesController < ApplicationController
 
 		# try to get the room and group from the IP address
 		remote_ip = request.env["HTTP_X_FORWARDED_FOR"]
-		remote_ip = request.env["HTTP_X_REAL_IP"] if remote_ip.empty?
-		remote_ip = request.remote_ip if remote_ip.empty?
+		remote_ip = request.env["HTTP_X_REAL_IP"] if remote_ip.nil?
+		remote_ip = request.remote_ip if remote_ip.nil?
 @debug = remote_ip
 
 		if remote_ip =~ /\A10\.(\d{1,3})\.(\d{1,3})\.\d{1,3}\Z/
