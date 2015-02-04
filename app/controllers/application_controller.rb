@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  http_basic_authenticate_with realm: "Helplist administration", name: "nsastaff", password: "Syp9595", if: :need_authentication?
+  http_basic_authenticate_with realm: "Helplist administration", name: "username", password: "password", if: :need_authentication?
 
   before_action :check_break
 

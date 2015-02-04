@@ -3,7 +3,8 @@
 This is a simple rails application which allows students to create help list entries.
 These entries are then compiled into a list (which can be filtered by course code).
 
-There is even a rails task (rake entries:clear) which can be run via a cron job to clear all entries from the database.
+Admin functionality (reviewing closed item, starting and ending breaks) is available at /admin
+The password for the admin area can be changed in the app/controllers/application_controller.rb file.
 
 == LICENSE
 
