@@ -1,0 +1,53 @@
+<div class="page-header">
+	<h1>Administration<small> No trespassing!</small></h1>
+</div>
+
+<% if Break.any? %>
+	<div class="row">
+		<div class="col-sm-offset-2 col-sm-3">
+			<p>You are currently on break.</p>
+			<%= button_to 'End break', break_path, method: :delete, class: ['btn', 'btn-primary'] %>
+		</div>
+	</div>
+<% else %>
+	<p><span class="label label-danger">Important</span> A coffee break will ignore any comments.</p>
+
+	<%= form_for(@break, url: break_path, html: {class: 'form-horizontal'}) do |f| %>
+		<% if @break.errors.any? %>
+			<div id="error_explanation" class="alert alert-danger" role="alert">
+				<strong><%= pluralize(@break.errors.count, "error") %> prohibited this break from being saved:</strong>
+
+				<ul>
+				<% @break.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+				<% end %>
+				</ul>
+			</div>
+		<% end %>
+
+		<div class="form-group">
+			 <div class="col-sm-offset-2 col-sm-3">
+				<div class="checkbox">
+					<%= f.label :coffee do %>
+					  <%= f.check_box :coffee %> This is a coffeebreak
+					<% end %>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :comment, class: ['col-sm-2', 'control-label'] %>
+			<div class="col-sm-3">
+				<%= f.text_field :comment, class: 'form-control', placeholder: 'Some optional comment' %>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="actions col-sm-offset-2 col-sm-3">
+				<%= f.submit 'I am on break!', class: ['btn', 'btn-primary'] %>
+			</div>
+		</div>
+	<% end %>
+<% end %>
+
+<p><%= link_to 'Back to Index', root_path %></p>

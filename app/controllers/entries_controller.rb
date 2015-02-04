@@ -13,13 +13,15 @@ class EntriesController < ApplicationController
 		remote_ip = request.env["HTTP_X_FORWARDED_FOR"]
 		remote_ip = request.env["HTTP_X_REAL_IP"] if remote_ip.nil?
 		remote_ip = request.remote_ip if remote_ip.nil?
-@debug = remote_ip
 
 		if remote_ip =~ /\A10\.(\d{1,3})\.(\d{1,3})\.\d{1,3}\Z/
 			room = $1
 			group = $2.to_i
-			@entry.room = "D#{room}" if room.in?(['204', '205', '206', '207', '208'])
-			@entry.group = group if group.in?(1..20)
+			
+			if ( ( room.in?(['204', '205', '206', '207', '208']) ) && ( group.in?(1..20) ) )
+				@entry.room = "D#{room}"
+				@entry.group = group
+			end
 		end
 	end
 

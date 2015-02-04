@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CoffeebreakTest < ActiveSupport::TestCase
+class BreakTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

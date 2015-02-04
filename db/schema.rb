@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150129221705) do
+ActiveRecord::Schema.define(version: 20150204091822) do
+
+  create_table "breaks", force: :cascade do |t|
+    t.boolean  "coffee"
+    t.string   "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "coffeebreaks", force: :cascade do |t|
     t.datetime "created_at", null: false

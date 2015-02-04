@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+  get 'admins/show'
+
+	resource :admin, only: [:show]
+	resource :break, only: [:create, :destroy]
 
 	resources :entries, only: [:index, :new, :create, :destroy]
 	get 'entries/:course', to: 'entries#filter', as: 'filter_entries'
-
-	get 'coffeebreak/start', to: 'coffeebreaks#start'
-	get 'coffeebreak/end', to: 'coffeebreaks#end'
+	get 'filter/:course', to: 'entries#filter', as: 'filter_course'
 
 	root 'entries#index'
 
