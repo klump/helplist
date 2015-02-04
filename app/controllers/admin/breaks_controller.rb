@@ -6,7 +6,7 @@ class Admin::BreaksController < ApplicationController
 
 		respond_to do |format|
 			if @break.save
-				format.html { redirect_to root_url, notice: 'Break started.' }
+				format.html { redirect_to admin_url, notice: 'Break started.' }
 				format.json { render :show, status: :created }
 			else
 				format.html { render :new }
@@ -20,7 +20,7 @@ class Admin::BreaksController < ApplicationController
 	def destroy
 		Break.destroy_all
 		respond_to do |format|
-			format.html { redirect_to root_url, notice: 'Break ended.' }
+			format.html { redirect_to admin_url, notice: 'Break ended.' }
 			format.json { head :no_content }
 		end
 	end

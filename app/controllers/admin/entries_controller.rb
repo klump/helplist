@@ -11,6 +11,17 @@ class Admin::EntriesController < ApplicationController
 		@entries = Entry.closed.order("created_at ASC")
 	end
 
+	# DELETE /admin/entries/closed
+	# DELETE /admin/entries/closed.json
+	def clear_closed
+		Entry.where("closed < :month", month: 1.month.ago).delete_all
+
+		respond_to do |format|
+			format.html { redirect_to admin_url, notice: 'Closed entries older than 1 month were successfully destroyed.' }
+			format.json { head :no_content }
+		end
+	end
+
 	# GET /admin/entries/course
 	# GET /admin/entries/course.json
 	def filter
