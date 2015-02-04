@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class BreaksControllerTest < ActionController::TestCase
+class Admin::BreaksControllerTest < ActionController::TestCase
   test "should get create" do
     get :create
     assert_response :success

@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
-  get 'admins/show'
-
 	resource :admin, only: [:show]
-	resource :break, only: [:create, :destroy]
+	namespace :admin do
+		resource :break, only: [:create, :destroy]
+		resources :entries, only: [:index, :destroy]
+		get 'entries/closed', to: 'entries#closed', as: 'closed_entries'
+		get 'entries/:course', to: 'entries#filter', as: 'filter_entries'
+		get 'filter/:course', to: 'entries#filter', as: 'filter_course'
+	end
 
 	resources :entries, only: [:index, :new, :create, :destroy]
 	get 'entries/:course', to: 'entries#filter', as: 'filter_entries'

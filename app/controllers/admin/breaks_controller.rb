@@ -1,6 +1,6 @@
-class BreaksController < ApplicationController
-	# POST /break
-	# POST /break.json
+class Admin::BreaksController < ApplicationController
+	# POST /admin/break
+	# POST /admin/break.json
 	def create
 		@break = Break.new(break_params)
 
@@ -15,8 +15,8 @@ class BreaksController < ApplicationController
 		end
 	end
 
-	# DELETE /break
-	# DELETE /break.json
+	# DELETE /admin/break
+	# DELETE /admin/break.json
 	def destroy
 		Break.destroy_all
 		respond_to do |format|

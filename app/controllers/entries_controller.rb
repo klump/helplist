@@ -2,19 +2,14 @@ class EntriesController < ApplicationController
 	# GET /entries
 	# GET /entries.json
 	def index
-		@entries = Entry.all.order("created_at ASC")
+		@entries = Entry.open.order("created_at ASC")
 	end
 
 	# GET /entries/new
 	def new
 		@entry = Entry.new
 
-		# try to get the room and group from the IP address
-		remote_ip = request.env["HTTP_X_FORWARDED_FOR"]
-		remote_ip = request.env["HTTP_X_REAL_IP"] if remote_ip.nil?
-		remote_ip = request.remote_ip if remote_ip.nil?
-
-		if remote_ip =~ /\A10\.(\d{1,3})\.(\d{1,3})\.\d{1,3}\Z/
+		if request_ip =~ /\A10\.(\d{1,3})\.(\d{1,3})\.\d{1,3}\Z/
 			room = $1
 			group = $2.to_i
 			
@@ -29,6 +24,9 @@ class EntriesController < ApplicationController
 	# POST /entries.json
 	def create
 		@entry = Entry.new(entry_params)
+		
+		@entry.ip = request_ip
+		@entry.closed = nil
 
 		respond_to do |format|
 			if @entry.save
@@ -46,24 +44,40 @@ class EntriesController < ApplicationController
 	def filter
 		@filter = params[:course].upcase
 
-		@entries = Entry.where( course: @filter).order("created_at ASC")
+		@entries = Entry.open.course(@filter).order("created_at ASC")
 	end
 
 	# DELETE /entries/1
 	# DELETE /entries/1.json
 	def destroy
-		@entry = Entry.find(params[:id])
+		@entry = Entry.open.find(params[:id])
 
-		@entry.destroy
-		respond_to do |format|
-			format.html { redirect_to root_url, notice: 'Entry was successfully destroyed.' }
-			format.json { head :no_content }
+		if request_ip == @entry.ip
+			@entry.mark_closed
+			respond_to do |format|
+				format.html { redirect_to root_url, notice: 'Entry was successfully destroyed.' }
+				format.json { head :no_content }
+			end
+		else
+			respond_to do |format|
+				format.html { redirect_to root_url, alert: 'Permission denied.' }
+				format.json { render json: { error: 'Permission denied.', status: :unprocessable_entity } }
+			end
 		end
 	end
 
 	private
 		# Never trust parameters from the scary internet, only allow the white list through.
 		def entry_params
-			params.require(:entry).permit(:course, :name, :room, :group, :demonstration)
+			params.require(:entry).permit(:course, :name, :room, :group, :ip, :demonstration)
+		end
+
+		# try to get the room and group from the IP address
+		def request_ip
+			remote_ip = request.env["HTTP_X_FORWARDED_FOR"]
+			remote_ip = request.env["HTTP_X_REAL_IP"] if remote_ip.nil?
+			remote_ip = request.remote_ip if remote_ip.nil?
+
+			return remote_ip
 		end
 end
