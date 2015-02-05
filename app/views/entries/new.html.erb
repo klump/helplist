@@ -2,8 +2,6 @@
 	<h1>Helplist <small>Add request for help</small></h1>
 </div>
 
-<p><span class="label label-danger">Important</span> This list will be cleared automatically every night.</p>
-
 <%= form_for(@entry, html: {class: 'form-horizontal'}) do |f| %>
 	<% if @entry.errors.any? %>
 		<div id="error_explanation" class="alert alert-danger" role="alert">

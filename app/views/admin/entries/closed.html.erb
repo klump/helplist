@@ -1,34 +1,36 @@
 <div class="page-header">
-	<h1>[Admin] Helplist <small>Closed entries</small></h1>
+  <h1>[Admin] Helplist <small>Closed entries</small></h1>
 </div>
 
-<p><%= button_to 'Delete closed entries old than 1 month', admin_clear_closed_entries_path, method: :delete, class: ['btn', 'btn-danger'] %></p>
-
 <% if @entries.any? %>
-	<table class="table table-striped table-condensed">
-		<tr>
-			<th>Course</th>
-			<th>Name</th>
-			<th>Room</th>
-			<th>Group</th>
-			<th>Type</th>
-			<th>Created at</th>
-			<th>Closed at</th>
-			<th>Waiting for</th>
-		</tr>
-	<% @entries.each do |entry| %>
-		<tr>
-			<td><%= entry.course %></td>
-			<td><%= entry.name %></td>
-			<td><%= entry.room %></td>
-			<td><%= entry.group %></td>
-			<td><%= entry.demonstration? ? 'Demo' : 'Help' %></td>
-			<td><time datetime="<%= entry.created_at %>"><%= entry.created_at %></time></td>
-			<td><time datetime="<%= entry.closed %>"><%= entry.closed %></time></td>
-			<td><%= distance_of_time_in_words(entry.created_at, entry.closed) %></td>
-		</tr>
-	<% end %>
-	</table>
+  <p><%= button_to 'Delete closed entries old than 1 month', admin_clear_closed_entries_path, method: :delete, class: ['btn', 'btn-danger'] %></p>
+
+  <table class="table table-striped table-condensed">
+    <tr>
+      <th>Course</th>
+      <th>Name</th>
+      <th>Room</th>
+      <th>Group</th>
+      <th>Type</th>
+      <th>Created at</th>
+      <th>Closed at</th>
+      <th>Waiting for</th>
+    </tr>
+  <% @entries.each do |entry| %>
+    <tr>
+      <td><%= entry.course %></td>
+      <td><%= entry.name %></td>
+      <td><%= entry.room %></td>
+      <td><%= entry.group %></td>
+      <td><%= entry.demonstration? ? 'Demo' : 'Help' %></td>
+      <td><time datetime="<%= entry.created_at %>"><%= entry.created_at %></time></td>
+      <td><time datetime="<%= entry.closed %>"><%= entry.closed %></time></td>
+      <td><%= distance_of_time_in_words(entry.created_at, entry.closed) %></td>
+    </tr>
+  <% end %>
+  </table>
 <% else %>
-	<p>No closed entries found.</p>
+  <p>No closed entries found.</p>
 <%end %>
+
+<p><%= link_to 'Back to Admin area', admin_path %> | <%= link_to 'Back to Index', root_path %></p>
