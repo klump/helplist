@@ -8,16 +8,16 @@ class ApplicationController < ActionController::Base
   before_action :check_break
 
   private
-		def check_break
-			@current_break = Break.first
-		end
+    def check_break
+      @current_break = Break.first
+    end
 
-		def need_authentication?
-			!params[:controller].in?(['entries'])
-		end
+    def need_authentication?
+      !params[:controller].in?(['entries'])
+    end
 
-		# get admin status
-		def admin?
-			params[:admin]
-		end
+    # get admin status
+    def admin?
+      params[:admin]
+    end
 end
