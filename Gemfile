@@ -14,6 +14,9 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+# cors for the javascript api
+gem 'rack-cors', :require => 'rack/cors'
+
 # bootstrap
 gem 'bootstrap-sass'
 

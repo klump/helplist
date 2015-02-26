@@ -25,5 +25,17 @@ module Helplist
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Enable CORS requests so that the API can be used
+
+    config.middleware.insert_before 0, "Rack::Cors", :debug => true, :logger => (-> { Rails.logger }) do
+      allow do
+        # allow requests from everywhere (this is a public API...)
+        origins '*'
+        resource '*',
+          :headers => :any,
+          :methods => [:get, :post, :delete, :put, :options, :head]
+      end
+    end
   end
 end
