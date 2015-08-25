@@ -11,6 +11,26 @@ class Admin::EntriesController < ApplicationController
     @entries = Entry.closed.order("created_at ASC")
   end
 
+  # GET /admin/entries/course
+  # GET /admin/entries/course.json
+  def filter
+    @filter = params[:course].upcase
+
+    @entries = Entry.open.course(@filter).order("created_at ASC")
+  end
+
+  # DELETE /admin/entries/1
+  # DELETE /admin/entries/1.json
+  def destroy
+    @entry = Entry.open.find(params[:id])
+
+    @entry.close
+    respond_to do |format|
+      format.html { redirect_to admin_entries_url, notice: 'Entry was successfully closed.' }
+      format.json { head :no_content }
+    end
+  end
+
   # DELETE /admin/entries/closed
   # DELETE /admin/entries/closed.json
   def clear_closed
@@ -30,27 +50,7 @@ class Admin::EntriesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to admin_url, notice: 'Sucessfully closed all open entries' }
-      format.json { head :no_content }
-    end
-  end
-
-  # GET /admin/entries/course
-  # GET /admin/entries/course.json
-  def filter
-    @filter = params[:course].upcase
-
-    @entries = Entry.open.course(@filter).order("created_at ASC")
-  end
-
-  # DELETE /admin/entries/1
-  # DELETE /admin/entries/1.json
-  def destroy
-    @entry = Entry.open.find(params[:id])
-
-    @entry.close
-    respond_to do |format|
-      format.html { redirect_to admin_entries_url, notice: 'Entry was successfully destroyed.' }
+      format.html { redirect_to admin_url, notice: 'Entries were sucessfully closed.' }
       format.json { head :no_content }
     end
   end

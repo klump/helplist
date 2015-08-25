@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   resource :admin, only: [:show]
   namespace :admin do
-    resource :breaks
-    resources :comments
+    resource :break, only: [:create, :show, :destroy]
+    resources :comments, only: [:index, :show, :create, :destroy]
 
     get 'entries/closed', to: 'entries#closed', as: 'closed_entries'
     delete 'entries/closed', to: 'entries#clear_closed', as: 'clear_closed_entries'

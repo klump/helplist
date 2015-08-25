@@ -3,7 +3,6 @@
   <head>
     <title>NSA helplist</title>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
-    <%- #= javascript_include_tag 'application', 'data-turbolinks-track' => true -%>
     <%= csrf_meta_tags %>
     <% if ( ( controller_name == 'entries' ) && ( ( action_name == 'filter' ) || ( action_name == 'index' ) ) ) %>
       <meta http-equiv="refresh" content="20">
@@ -16,12 +15,19 @@
   </head>
   <body>
 
+    <% if Break.active? %>
+      <div class="navbar navbar-default navbar-fixed-top" role="alert">
+        <div class="container">
+          <p class="navbar-text"><strong>The supervisors are currently on a coffee break.</strong> You are welcome to queue for help and we will get back to you as soon as possible.</p>
+        </div>
+      </div>
+    <% end %>
+
     <% if @debug %>
       <pre>
         <%= @debug %>
       </pre>
     <% end %>
-
     <% if notice %>
       <div class="alert alert-success" role="alert">
         <strong>Success!</strong> <%= notice %>
@@ -32,28 +38,18 @@
         <strong>Problem!</strong> <%= alert %>
       </div>
     <% end %>
-
-    <% if @break %>
-        <div id="break" class="alert alert-danger" role="alert">
-          <strong><%= @break.course || "All courses" %>:</strong> The supervisors are right now on break. You are welcome to queue for help and we will get back to you as soon as possible.
-        </div>
-    <% end %>
     <% if @comments.any? %>
       <div id="break" class="alert alert-warning" role="alert">
-        <strong>The supervisors left some messages for you:</strong> 
-        <dl>
+        <dl class="dl-horizontal">
           <% @comments.each do |comment| %>
             <dt><%= comment.course || "All courses" %></dt>
-            <dd><%= comment.message %> <em><%= comment.signature %></em></dd>
+            <dd><%= comment.message %> <em class="comment-signature"><%= comment.signature %></em></dd>
           <% end %>
         </dl> 
       </div>
     <% end %>
 
     <%= yield %>
-    
-    <div class="small pull-right">
-      Feedback to <a href="mailto:alexander.kratzsch@his.se">Alexander Kratzsch</a>
-    </div>
+
   </body>
 </html>

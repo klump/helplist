@@ -3,35 +3,73 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-sm-2">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Manage helplist</h3>
       </div>
       <div class="panel-body">
         <ul class="list-unstyled">
-          <li><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> <%= link_to 'Shop open entries', admin_entries_path, method: :get %></li>
-          <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <%= link_to 'Show closed entries', admin_closed_entries_path, method: :get %></li>
-          <li><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> <%= link_to 'Close all open entries', admin_clear_all_entries_path, method: :delete %></li>
-        </ul>
+          <li><%= button_to 'Show open entries', admin_entries_path, method: :get, class: 'btn btn-primary col-xs-12' %></li>
+          <li><%= button_to 'Show closed entries', admin_closed_entries_path, method: :get, class: 'btn btn-default col-xs-12' %></li>
+          <li><%= button_to 'Close all open entries', admin_clear_all_entries_path, method: :delete, class: 'btn btn-danger col-xs-12' %></li>
+      </ul>
       </div>
     </div>
   </div>
-  <div class="col-sm-4">
+  <div class="col-sm-7">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Comments</h3>
       </div>
       <div class="panel-body">
+        <% if @all_comments.any? %>
+          <ul class="list-unstyled">
+          <% @all_comments.each do |comment| %>
+            <li>
+              <strong><%= comment.course || "All courses" %></strong>
+              <%= comment.message %>
+              <em class="comment-signature"><%= comment.signature %></em>
+              <%= button_to 'Remove', admin_comment_path(comment), method: :delete, class: 'btn btn-danger btn-xs' %>
+            </li>
+          <% end %>
+          </ul>
+        <% else %>
+          <p>No comments found.</p>
+        <% end %>
+      </div>
+      <div class="panel-footer">
+        <%= form_for :comment, url: admin_comments_path, html: { class: 'form-inline', style: 'text-align: center;' } do |f| %>
+          <div class="form-group" style="width: 20%;">
+            <%= f.label :course, class: 'sr-only' %>
+            <%= f.text_field :course, class: 'form-control', placeholder: 'Course', style: 'width: 100%;' %>
+          </div>
+          <div class="form-group" style="width: 40%;">
+            <%= f.label :message, class: 'sr-only' %>
+            <%= f.text_field :message, class: 'form-control', placeholder: 'Message', style: 'width: 100%;' %>
+          </div>
+          <div class="form-group" style="width: 15%;">
+            <%= f.label :signature, class: 'sr-only' %>
+            <%= f.text_field :signature, class: 'form-control', placeholder: 'Signature', style: 'width: 100%;' %>
+          </div>
+          <%= f.submit 'Add comment', class: 'btn btn-primary', style: 'width: 20%;' %>
+        <% end %>
       </div>
     </div>
   </div>
-  <div class="col-sm-4">
+  <div class="col-sm-3">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Breaks</h3>
+        <h3 class="panel-title">Break</h3>
       </div>
       <div class="panel-body">
+        <% if Break.active? %>
+          <p>You are currently on break.</p>
+          <%= button_to 'Back to work!', admin_break_path, method: :delete, class: 'btn btn-danger' %>
+        <% else %>
+          <p>You are currently working.</p>
+          <%= button_to 'Give me a break!', admin_break_path, class: 'btn btn-primary' %>
+        <% end %>
       </div>
     </div>
   </div>

@@ -1,74 +1,33 @@
-class BreaksController < ApplicationController
-  before_action :set_break, only: [:show, :edit, :update, :destroy]
-
-  # GET /breaks
-  # GET /breaks.json
-  def index
-    @breaks = Break.all
-  end
-
-  # GET /breaks/1
-  # GET /breaks/1.json
+class Admin::BreaksController < ApplicationController
+  # GET /admin/break.json
   def show
+    respond_to do |format|
+      format.html { raise AbstractController::ActionNotFound }
+      format.json { render json: Break.to_json, status: :ok }
+    end
   end
 
-  # GET /breaks/new
-  def new
-    @break = Break.new
-  end
-
-  # GET /breaks/1/edit
-  def edit
-  end
-
-  # POST /breaks
-  # POST /breaks.json
+  # POST /admin/break
+  # POST /admin/break.json
   def create
-    @break = Break.new(break_params)
-
     respond_to do |format|
-      if @break.save
-        format.html { redirect_to @break, notice: 'Break was successfully created.' }
-        format.json { render :show, status: :created, location: @break }
+      if Break.start
+        format.html { redirect_to admin_url }
+        format.json { render :show, status: :created, location: admin_break_url }
       else
-        format.html { render :new }
+        format.html { redirect_to admin_url, alert: @break.errors.full_messages.join(' ') }
         format.json { render json: @break.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /breaks/1
-  # PATCH/PUT /breaks/1.json
-  def update
-    respond_to do |format|
-      if @break.update(break_params)
-        format.html { redirect_to @break, notice: 'Break was successfully updated.' }
-        format.json { render :show, status: :ok, location: @break }
-      else
-        format.html { render :edit }
-        format.json { render json: @break.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /breaks/1
-  # DELETE /breaks/1.json
+  # DELETE /admin/break
+  # DELETE /admin/break.json
   def destroy
-    @break.destroy
+    Break.end
     respond_to do |format|
-      format.html { redirect_to breaks_url, notice: 'Break was successfully destroyed.' }
+      format.html { redirect_to admin_url }
       format.json { head :no_content }
     end
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_break
-      @break = Break.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def break_params
-      params.require(:break).permit(:course, :message)
-    end
 end

@@ -1,0 +1,30 @@
+<% if @entries.any? %>
+  <table class="table table-striped table-condensed">
+    <tr>
+      <th>Course</th>
+      <th>Name</th>
+      <th>Room</th>
+      <th>Group</th>
+      <th>Type</th>
+      <th>Waiting since</th>
+      <th>&nbsp;</th>
+    </tr>
+  <% @entries.each do |entry| %>
+    <tr>
+      <td><%= entry.course %></td>
+      <td><%= entry.name %></td>
+      <td><%= entry.room %></td>
+      <td><%= entry.group %></td>
+      <td><%= entry.demonstration? ? 'Demo' : 'Help' %></td>
+      <td><time datetime="<%= entry.created_at %>"><%= time_ago_in_words(entry.created_at) %></time></td>
+      <td>
+        <%= button_to 'Remove', admin_entry_path(entry), method: :delete, class: ['btn', 'btn-danger'] %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+<% else %>
+  <div id="no-help-needed" class="alert alert-success" role="alert"><strong>Good work!</strong> Nobody needs help right now.</div>
+<%end %>
+
+<p><%= link_to 'Back to Admin area', admin_path %></p>
