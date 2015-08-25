@@ -3,60 +3,36 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-offset-1 col-sm-4">
-    <p class="row"><%= button_to 'Manage helplist entries', admin_entries_path, method: :get, class: ['btn', 'btn-primary', 'btn-lg', 'col-sm-10'] %></p>
-    <p class="row"><%= button_to 'Show old helplist entries', admin_closed_entries_path, method: :get, class: ['btn', 'btn-default', 'btn-lg', 'col-sm-10'] %></p>
-    <p class="row"><%= button_to 'Close all open entries', admin_clear_all_entries_path, method: :delete, class: ['btn', 'btn-danger', 'btn-lg', 'col-sm-10'] %></p>
-  </div>
-  <div class="col-sm-offset-1 col-sm-6">
-    <% if @current_break %>
-      <div class="row">
-        <div class="col-sm-offset-4 col-sm-6">
-          <p>You are currently on break.</p>
-          <%= button_to 'Back to work!', admin_break_path, method: :delete, class: ['btn', 'btn-primary'] %>
-        </div>
+  <div class="col-sm-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Manage helplist</h3>
       </div>
-    <% else %>
-      <p><span class="label label-danger">Important</span> A coffee break will ignore any comments.</p>
-
-      <%= form_for(@break, url: admin_break_path, html: {class: 'form-horizontal'}) do |f| %>
-        <% if @break.errors.any? %>
-          <div id="error_explanation" class="alert alert-danger" role="alert">
-            <strong><%= pluralize(@break.errors.count, "error") %> prohibited this break from being saved:</strong>
-
-            <ul>
-            <% @break.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-            </ul>
-          </div>
-        <% end %>
-
-        <div class="form-group">
-           <div class="col-sm-offset-4 col-sm-6">
-            <div class="checkbox">
-              <%= f.label :coffee do %>
-                <%= f.check_box :coffee %> This is a coffeebreak
-              <% end %>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :comment, class: ['col-sm-4', 'control-label'] %>
-          <div class="col-sm-6">
-            <%= f.text_field :comment, class: 'form-control', placeholder: 'Some optional comment' %>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="actions col-sm-offset-4 col-sm-6">
-            <%= f.submit 'Give me a break!', class: ['btn', 'btn-primary'] %>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
+      <div class="panel-body">
+        <ul class="list-unstyled">
+          <li><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> <%= link_to 'Shop open entries', admin_entries_path, method: :get %></li>
+          <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <%= link_to 'Show closed entries', admin_closed_entries_path, method: :get %></li>
+          <li><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> <%= link_to 'Close all open entries', admin_clear_all_entries_path, method: :delete %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Comments</h3>
+      </div>
+      <div class="panel-body">
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Breaks</h3>
+      </div>
+      <div class="panel-body">
+      </div>
+    </div>
   </div>
 </div>
-
-<p><%= link_to 'Back to Index', root_path %></p>

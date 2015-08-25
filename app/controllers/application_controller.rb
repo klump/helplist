@@ -5,11 +5,12 @@ class ApplicationController < ActionController::Base
 
   http_basic_authenticate_with realm: "Helplist administration", name: "username", password: "password", if: :need_authentication?
 
-  before_action :check_break
+  before_action :get_breaks_and_comments
 
   private
-    def check_break
-      @current_break = Break.first
+    def get_breaks_and_comments
+      @break = Break.first
+      @comments = Comment.for_course(params[:course]) 
     end
 
     def need_authentication?

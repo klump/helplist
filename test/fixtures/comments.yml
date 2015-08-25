@@ -3,7 +3,9 @@
 one:
   course: MyString
   message: MyString
+  signature: MyString
 
 two:
   course: MyString
   message: MyString
+  signature: MyString

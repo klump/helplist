@@ -1,0 +1,25 @@
+<%= form_for(@break) do |f| %>
+  <% if @break.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@break.errors.count, "error") %> prohibited this break from being saved:</h2>
+
+      <ul>
+      <% @break.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :course %><br>
+    <%= f.text_field :course %>
+  </div>
+  <div class="field">
+    <%= f.label :message %><br>
+    <%= f.text_field :message %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

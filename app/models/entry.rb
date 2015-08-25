@@ -1,6 +1,6 @@
 class Entry < ActiveRecord::Base
   validates :course, format: {with: /\A[A-Z]{2}[0-9]{3}[A-Z]\Z/, message: 'is not in the right format. Use something like IT334G.'}
-  validates :name, uniqueness: {scope: [:course, :closed], case_sensitive: false, message: 'needs to be unique for the course (You cannot queue twice).'}, presence: true
+  validates :name, uniqueness: {scope: [:course, :closed_at], case_sensitive: false, message: 'needs to be unique for the course (You cannot queue twice).'}, presence: true
   validates :room, format: {with: /\A[A-Z][0-9]{3}\Z/, message: 'is not in the right format. Use something like D204.'}
   validates :group, inclusion: {in: 1..20, message: 'needs to be between 1 and 20.'}
   validates :demonstration, inclusion: {in: [true, false], message: 'needs to be present.'}
@@ -21,7 +21,7 @@ class Entry < ActiveRecord::Base
 
   def close
     self.closed_at = Time.now
-    save
+    self.save
   end
 
   private

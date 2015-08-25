@@ -11,30 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150204130047) do
+ActiveRecord::Schema.define(version: 20150825110046) do
 
   create_table "breaks", force: :cascade do |t|
-    t.boolean  "coffee"
-    t.string   "comment"
+    t.string   "course"
+    t.string   "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "coffeebreaks", force: :cascade do |t|
+  create_table "comments", force: :cascade do |t|
+    t.string   "course"
+    t.string   "message"
+    t.string   "signature"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "entries", force: :cascade do |t|
-    t.string   "course",        limit: 255
-    t.string   "name",          limit: 255
-    t.string   "room",          limit: 255
-    t.integer  "group",         limit: 4
-    t.boolean  "demonstration", limit: 1
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "course"
+    t.string   "name"
+    t.string   "room"
+    t.integer  "group"
+    t.boolean  "demonstration"
     t.string   "ip"
-    t.datetime "closed"
+    t.datetime "closed_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
 end

@@ -26,7 +26,7 @@ class EntriesController < ApplicationController
     @entry = Entry.new(entry_params)
     
     @entry.ip = request_ip
-    @entry.close = nil
+    @entry.closed_at = nil
 
     respond_to do |format|
       if @entry.save

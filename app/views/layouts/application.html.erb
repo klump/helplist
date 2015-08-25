@@ -21,6 +21,7 @@
         <%= @debug %>
       </pre>
     <% end %>
+
     <% if notice %>
       <div class="alert alert-success" role="alert">
         <strong>Success!</strong> <%= notice %>
@@ -31,22 +32,22 @@
         <strong>Problem!</strong> <%= alert %>
       </div>
     <% end %>
-    <% if @current_break %>
-      <% if @current_break.coffee? %>
-        <div id="break" class="alert alert-warning coffeebreak" role="alert">
-          <strong>The supervisors are right now on coffee break.</strong> You are welcome to queue for help and we will get back to you as soon as possible.
-        </div>
-      <% else %>
-        <div id="break" class="alert alert-warning" role="alert">
-          <strong>The supervisors are right now on break or away to save the world.</strong> You are welcome to queue for help and we will get back to you as soon as possible.
-          <% if @current_break.comment.present? %>
-            <ul>
-              <li><%= @current_break.comment %></li>
-            </ul> 
-          <% end %>
-        </div>
 
-      <% end %>
+    <% if @break %>
+        <div id="break" class="alert alert-danger" role="alert">
+          <strong><%= @break.course || "All courses" %>:</strong> The supervisors are right now on break. You are welcome to queue for help and we will get back to you as soon as possible.
+        </div>
+    <% end %>
+    <% if @comments.any? %>
+      <div id="break" class="alert alert-warning" role="alert">
+        <strong>The supervisors left some messages for you:</strong> 
+        <dl>
+          <% @comments.each do |comment| %>
+            <dt><%= comment.course || "All courses" %></dt>
+            <dd><%= comment.message %> <em><%= comment.signature %></em></dd>
+          <% end %>
+        </dl> 
+      </div>
     <% end %>
 
     <%= yield %>
