@@ -39,7 +39,7 @@
       </div>
     <% end %>
     <% if @comments.any? %>
-      <div id="break" class="alert alert-warning" role="alert">
+      <div id="comments" class="alert alert-warning" role="alert">
         <dl class="dl-horizontal">
           <% @comments.each do |comment| %>
             <dt><%= comment.course || "All courses" %></dt>
