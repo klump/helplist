@@ -24,8 +24,8 @@
       <td><%= entry.group %></td>
       <td><%= entry.demonstration? ? 'Demo' : 'Help' %></td>
       <td><time datetime="<%= entry.created_at %>"><%= entry.created_at %></time></td>
-      <td><time datetime="<%= entry.closed %>"><%= entry.closed %></time></td>
-      <td><%= distance_of_time_in_words(entry.created_at, entry.closed) %></td>
+      <td><time datetime="<%= entry.closed_at %>"><%= entry.closed_at %></time></td>
+      <td><%= distance_of_time_in_words(entry.created_at, entry.closed_at) %></td>
     </tr>
   <% end %>
   </table>

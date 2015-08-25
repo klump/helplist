@@ -5,7 +5,9 @@ class CreateEntries < ActiveRecord::Migration
       t.string :name
       t.string :room
       t.integer :group
-      t.boolean :type
+      t.boolean :demonstration
+      t.string :ip
+      t.timestamp :closed_at, default: nil
 
       t.timestamps null: false
     end

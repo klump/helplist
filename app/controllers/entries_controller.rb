@@ -26,7 +26,7 @@ class EntriesController < ApplicationController
     @entry = Entry.new(entry_params)
     
     @entry.ip = request_ip
-    @entry.closed = nil
+    @entry.close = nil
 
     respond_to do |format|
       if @entry.save
@@ -53,7 +53,7 @@ class EntriesController < ApplicationController
     @entry = Entry.open.find(params[:id])
 
     if request_ip == @entry.ip
-      @entry.mark_closed
+      @entry.close
       respond_to do |format|
         format.html { redirect_to root_url, notice: 'Entry was successfully destroyed.' }
         format.json { head :no_content }

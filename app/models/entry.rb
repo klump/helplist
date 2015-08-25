@@ -12,15 +12,15 @@ class Entry < ActiveRecord::Base
   end
 
   def self.open
-    where("entries.closed IS NULL" )
+    where("entries.closed_at IS NULL" )
   end
 
   def self.closed
-    where("entries.closed IS NOT NULL" )
+    where("entries.closed_at IS NOT NULL" )
   end
 
-  def mark_closed
-    self.closed = Time.now
+  def close
+    self.closed_at = Time.now
     save
   end
 

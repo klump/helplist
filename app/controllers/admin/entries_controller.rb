@@ -26,7 +26,7 @@ class Admin::EntriesController < ApplicationController
   # DELETE /admin/entries/all.json
   def clear_all
     Entry.open.each do |entry|
-      entry.mark_closed
+      entry.close
     end
 
     respond_to do |format|
@@ -48,7 +48,7 @@ class Admin::EntriesController < ApplicationController
   def destroy
     @entry = Entry.open.find(params[:id])
 
-    @entry.mark_closed
+    @entry.close
     respond_to do |format|
       format.html { redirect_to admin_entries_url, notice: 'Entry was successfully destroyed.' }
       format.json { head :no_content }
