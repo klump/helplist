@@ -1,5 +1,5 @@
 class AdminsController < ApplicationController
   def show
-    @break = Break.new
+    @all_comments = Comment.all
   end
 end
