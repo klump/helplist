@@ -17,23 +17,23 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-7">
+  <div class="col-sm-8">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Comments</h3>
       </div>
       <div class="panel-body">
         <% if @all_comments.any? %>
-          <ul class="list-unstyled">
+          <div class="row">
           <% @all_comments.each do |comment| %>
-            <li>
+            <div class="col-xs-4" style="word-wrap: break-word;">
               <strong><%= comment.course || "All courses" %></strong>
               <%= comment.message %>
               <em class="comment-signature"><%= comment.signature %></em>
               <%= button_to 'Remove', admin_comment_path(comment), method: :delete, class: 'btn btn-danger btn-xs' %>
-            </li>
+            </div>
           <% end %>
-          </ul>
+          </div>
         <% else %>
           <p>No comments found.</p>
         <% end %>
@@ -57,7 +57,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-3">
+  <div class="col-sm-2">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Break</h3>
