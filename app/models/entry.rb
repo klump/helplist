@@ -21,6 +21,7 @@ class Entry < ActiveRecord::Base
 
   def close
     self.closed_at = Time.now
+    self.name = 'Anonymized'
     self.save
   end
 
